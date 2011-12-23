@@ -44,7 +44,6 @@ class CartsControllerTest < ActionController::TestCase
       session[:cart_id] = @cart_id
       delete :destroy, id: @cart.to_param
     end
-
     assert_redirected_to store_path
   end
 end
