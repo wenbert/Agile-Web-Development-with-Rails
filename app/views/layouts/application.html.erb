@@ -7,29 +7,41 @@
   <%= javascript_include_tag :application %>
   <%= csrf_meta_tags %>
 </head>
-<body id="store" >
-  <div id="banner" >
-    <%= image_tag("/images/logo.png") %>
+<body id="store">
+  <div id="banner">
+    <%= image_tag("logo.png") %>
     <%= @page_title || "Pragmatic Bookshelf" %>
   </div>
-  <div id="columns" >
-    <div id="side" >
-      <div id="cart" >
-        <% if @cart%>
-          <%= hidden_div_if(@cart.line_items.empty?, :id=>"cart") do %>
-            <%= render @cart %>
-          <% end %>
+  <div id="columns">
+    <div id="side">
+      <!-- START:hidden_div -->
+      <% if @cart %>
+        <%= hidden_div_if(@cart.line_items.empty?, :id => "cart") do %>
+          <%= render @cart %>
         <% end %>
-      </div>
-      <a href="http://www...." >Home</a><br />
-      <a href="http://www..../faq" >Questions</a><br />
-      <a href="http://www..../news" >News</a><br />
-      <a href="http://www..../contact" >Contact</a><br />
+      <% end %>
+    <!-- END:hidden_div -->
+
+      <a href="http://www....">Home</a><br />
+      <a href="http://www..../faq">Questions</a><br />
+      <a href="http://www..../news">News</a><br />
+      <a href="http://www..../contact">Contact</a><br />
+<!-- START_HIGHLIGHT -->
+
+      <% if session[:user_id] %>
+        <br />
+        <%= link_to 'Orders',   orders_path   %><br />
+        <%= link_to 'Products', products_path %><br />
+        <%= link_to 'Users',    users_path    %><br />
+        <br />
+        <%= button_to 'Logout', logout_path, :method => :delete   %>
+      <% end %>
+<!-- END_HIGHLIGHT -->
     </div>
-  <div id="main" >
-  <%= yield %>
+    <div id="main">
+      <%= yield %>
+    </div>
   </div>
-</div>
 </body>
 </html>
 
